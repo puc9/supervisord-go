@@ -9,13 +9,12 @@ before:
     - go mod download
 
 builds:
-
   - id: dynamic
     binary: supervisord
     env:
       - CGO_ENABLED=0
     ldflags:
-      - "-s -w"
+      - '-s -w'
     flags:
       - -tags=release
     goos:
@@ -27,15 +26,15 @@ builds:
       - arm64
       - arm
     goarm:
-      - "6"
-      - "7"
+      - '6'
+      - '7'
 
   - id: static
     binary: supervisord
     env:
       - CGO_ENABLED=1
     ldflags:
-      - "-linkmode external -extldflags -static"
+      - '-linkmode external -extldflags -static'
     flags:
       - -tags=release
     goos:
@@ -58,16 +57,11 @@ builds:
         - cmd: upx "{{ .Path }}"
 
 archives:
-
   - id: archive_multi
     builds: [dynamic]
     name_template: >-
-      {{ .ProjectName }}_{{ .Version }}_
-      {{- title .Os }}_
-      {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
-      {{- else }}{{ .Arch }}{{ end }}
-      {{- if .Arm }}v{{ .Arm }}{{ end }}
+      {{ .ProjectName }}_{{ .Version }}_ {{- title .Os }}_ {{- if eq .Arch "amd64" }}x86_64 {{- else if eq .Arch "386"
+      }}i386 {{- else }}{{ .Arch }}{{ end }} {{- if .Arm }}v{{ .Arm }}{{ end }}
     format: tar.gz
     format_overrides:
       - goos: windows
@@ -79,12 +73,8 @@ archives:
   - id: archive_static
     builds: [static]
     name_template: >-
-      {{ .ProjectName }}_static_{{ .Version }}_
-      {{- title .Os }}_
-      {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
-      {{- else }}{{ .Arch }}{{ end }}
-      {{- if .Arm }}v{{ .Arm }}{{ end }}
+      {{ .ProjectName }}_static_{{ .Version }}_ {{- title .Os }}_ {{- if eq .Arch "amd64" }}x86_64 {{- else if eq .Arch
+      "386" }}i386 {{- else }}{{ .Arch }}{{ end }} {{- if .Arm }}v{{ .Arm }}{{ end }}
     format: tar.gz
     wrap_in_directory: true
     files:
@@ -92,8 +82,8 @@ archives:
 
 release:
   github:
-    owner: ochinchina
-    name: supervisord
+    owner: puc9
+    name: supervisord-go
   draft: false
   prerelease: auto
-  name_template: "{{.ProjectName}}-v{{.Version}}"
+  name_template: '{{.ProjectName}}-v{{.Version}}'

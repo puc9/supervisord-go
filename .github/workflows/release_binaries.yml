@@ -5,10 +5,8 @@ on: workflow_dispatch
 #  push:
 #    tags:
 #      - '*'
-  
 
 jobs:
-
   goreleaser:
     runs-on: ubuntu-latest
     steps:
@@ -19,7 +17,7 @@ jobs:
 
       - name: Install UPX
         env:
-          UPXVER: "4.0.2"
+          UPXVER: '4.0.2'
         run: |
           if [[ ! -f "upx/${UPXVER}/upx" ]]; then
             echo "Installing upx .."
