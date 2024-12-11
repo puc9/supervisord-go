@@ -1,10 +1,11 @@
 ---
 name: Release Binaries
 
-on:
-  push:
-    tags:
-      - '*'
+on: workflow_dispatch
+#  push:
+#    tags:
+#      - '*'
+  
 
 jobs:
 
